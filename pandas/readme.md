@@ -23,8 +23,13 @@ import numpy as np
 ```
 
 ### 2. 판다스의 객체
++ 표(Table) : 데이터 프레임(2. DataFrame)
++ 행(Columns) : 시리즈(1. Series)
++ 열(row) : 인덱스(3. Index)
+
+
 #### 1. 시리즈(Series)
-* 표(Table)는 행(column)과 열(row)로 구성되는데, 시리즈는 행에 해당하는 데이터이다.
+* 표(Table)는 행(column)과 열(row)로 구성되는데, 시리즈는 행에 해당하는 데이터이다. (세로)
 
 ```Python
 s = pd.Series([0, 0.25, 0.5, 0.75, 1])
@@ -90,33 +95,75 @@ pd.DataFrame(np.random.rand(5, 5),
              index = [1, 2, 3, 4, 5])
 ```
 
+```Python
+male_tuple = {'서울특별시': 4732755,
+              '부산광역시': 1668618,
+              '인천광역시': 1473813,
+              '대구광역시': 1198815,
+              '대전광역시': 734441,
+              '광주광역시': 720060}
+male = pd.Series(male_tuple)
+print(population)
+
+female_tuple = {'서울특별시': 4988571,
+                '부산광역시': 1735805,
+                '인천광역시': 1470404,
+                '대구광역시': 1229139,
+                '대전광역시': 736599,
+                '광주광역시': 734988}
+female = pd.Series(female_tuple)
+print(population)
+
+```
+
+* 세 개의 시리즈를 바탕으로 데이터 프레임 만들기
+```Python
+korea_df = pd.DataFrame({'인구수': population,
+                         '남자인구수': male,
+                         '여자인구수': female})
+print(korea_df)
+```
+
+* 데이터프레임에 관련된 사항을 질의할 때
+```Python
+korea_df.index  # 인덱스를 볼 때 (서울, 부산, 인천, 대구, 대전, 광주)
+korea_df.columns  # 컬럼만 볼 때 (인구수, 여자인구수, 남자인구수)
+
+korea_df['여자인구수']  # 여자 인구수 컬럼의 데이터만 질의할 때
+korea_df['서울특별시':'대전광역시']  # 서울, 부산, 인천, 대구, 대전 인덱스의 데이터를 질의할 때
+```
+
+#### 3. 인덱스(Index)
+* 표(Table)는 행(column)과 열(row)로 구성되는데, 인덱스는 열을 포함하는 객체이다. (가로)
+
+##### 3.1. 인덱스의 종류(클래스)
+Index : 일반적인 인덱스 객체이며, NumPy 배열 형식으로 축의 이름을 표현
+Int64Index : 정수 값을 위한 Index
+MultiIndex : 단일 축에 여러 단계 색인을 표현하는 계층적인 Index 객체
+DatetimeIndex : NumPy의 Datetime64 타입으로 타임스탬프 저장
+PeriodIndex : 기간 데이터를 위한 Index
+
+```Python
+idx = pd.Index([2, 4, 6, 8, 10])
+idx[1] 
+idx[1:4:2]
+idx[-1]
+idx[::2]  # 기본적인 파이썬 슬라이싱 문법을 적용할 수 있음
+
+print(idx) 
+print(idx.size)  # 인덱스가 몇 개인지 알 수 있음
+print(idx. shape)  # 인덱스 모양
+print(idx.ndim)  # 인덱스 차원
+print(idx.dtype)  # 인덱스의 데이터타입
+```
+
+##### 3.2. 인덱스의 연산
 
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+- - -
 
 
 배우는 것이 생기면 계속 업데이트 예정
