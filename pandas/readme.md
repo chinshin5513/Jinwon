@@ -137,11 +137,11 @@ korea_df['서울특별시':'대전광역시']  # 서울, 부산, 인천, 대구,
 * 표(Table)는 행(column)과 열(row)로 구성되는데, 인덱스는 열을 포함하는 객체이다. (가로)
 
 ##### 3.1. 인덱스의 종류(클래스)
-Index : 일반적인 인덱스 객체이며, NumPy 배열 형식으로 축의 이름을 표현
-Int64Index : 정수 값을 위한 Index
-MultiIndex : 단일 축에 여러 단계 색인을 표현하는 계층적인 Index 객체
-DatetimeIndex : NumPy의 Datetime64 타입으로 타임스탬프 저장
-PeriodIndex : 기간 데이터를 위한 Index
++ Index : 일반적인 인덱스 객체이며, NumPy 배열 형식으로 축의 이름을 표현
++ Int64Index : 정수 값을 위한 Index
++ MultiIndex : 단일 축에 여러 단계 색인을 표현하는 계층적인 Index 객체
++ DatetimeIndex : NumPy의 Datetime64 타입으로 타임스탬프 저장
++ PeriodIndex : 기간 데이터를 위한 Index
 
 ```Python
 idx = pd.Index([2, 4, 6, 8, 10])
