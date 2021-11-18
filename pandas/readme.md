@@ -28,7 +28,7 @@ import numpy as np
 + 열(row) : 인덱스(3. Index)
 
 
-#### 1. 시리즈(Series)
+#### 2.1. 시리즈(Series)
 * 표(Table)는 행(column)과 열(row)로 구성되는데, 시리즈는 행에 해당하는 데이터이다. (세로)
 
 ```Python
@@ -83,7 +83,7 @@ print(population['서울특별시'])
 print(population['부산광역시', '대전광역시'])
 ```
 
-#### 2. 데이터 프레임(DataFrame)
+#### 2.2. 데이터 프레임(DataFrame)
 * 표(Table)는 행(column)과 열(row)로 구성되는데, 데이터 프레임은 여러 개의 행을 포함하는 객체이다.
 
 ```Python
@@ -133,10 +133,10 @@ korea_df['여자인구수']  # 여자 인구수 컬럼의 데이터만 질의할
 korea_df['서울특별시':'대전광역시']  # 서울, 부산, 인천, 대구, 대전 인덱스의 데이터를 질의할 때
 ```
 
-#### 3. 인덱스(Index)
+#### 2.3. 인덱스(Index)
 * 표(Table)는 행(column)과 열(row)로 구성되는데, 인덱스는 열을 포함하는 객체이다. (가로)
 
-##### 3.1. 인덱스의 종류(클래스)
+##### 2.3.1. 인덱스의 종류(클래스)
 + Index : 일반적인 인덱스 객체이며, NumPy 배열 형식으로 축의 이름을 표현
 + Int64Index : 정수 값을 위한 Index
 + MultiIndex : 단일 축에 여러 단계 색인을 표현하는 계층적인 Index 객체
@@ -157,8 +157,66 @@ print(idx.ndim)  # 인덱스 차원
 print(idx.dtype)  # 인덱스의 데이터타입
 ```
 
-##### 3.2. 인덱스의 연산
+##### 2.3.2. 인덱스의 연산
++ append
++ difference
++ intersection
++ union
++ isin
++ delete
++ drop
++ insert
++ is_monotonic
++ is_unique
++ unique
 
+```Python
+idx1 = pd.Index([1, 2, 4, 6, 8])  # 인덱스 1
+idx2 = pd.Index([2, 4, 5, 6, 7])  # 인덱스 2
+
+print(idx1.append(idx2))  # 인덱스 1에 인덱스 2를 붙이는 형태 
+print(idx1.difference(idx2))   # 인덱스 1에 인덱스2에 있는 것을 뺌(차집합) == print(idx1 - idx2)
+print(idx1.intersection(idx2))  # 인덱스 1과 인덱스2 중 공통된 것만 추출(교집합) == print(idx1 & idx2)
+print(idx1.union(idx2))  # 인덱스 1과 인덱스 2를 묶어 집합으로 만들어 추출(합집합) == print(idx1 | idx2)
+print(idx1 ^ idx2)  # 인덱스 1과 인덱스 2의 여집합을 추출
+
+print(idx1.delete(0))  # 위치를 지정하여 인덱스 값을 삭제(첫 번째 인덱스 값 삭제)
+print(idx1.drop(2))  # 값을 지정하여 인덱스 값을 삭제(2가 들어간 인덱스 값을 삭제)
+```
+
+
+### 3. 인덱싱
++ 
+
+```Python
+s = pd.Series([0, 0.25, 0.5, 0.75, 1],
+               index=['a', 'b', 'c', 'd', 'e'])
+s['b']  #
+'b' in s
+s.keys()  # 전체 인덱스 값을 조회할 수 있음
+s.items()  # zip으로 묶여서 나옴
+list(s.items())  # key와 value가 튜플로 중첩리스트되어 출력, 딕셔너리와 유사
+
+s['f']  # 없는 인덱스를 새로 만들어서 냄
+print(s)
+
+s['a':'d']  # 슬라이싱(인덱스 이름)
+s[0:3]  # 슬라이싱(위치값)
+s[['a', 'b', 'd']
+
+s[(s > 0.4) & (s < 0.8)]  # 특정 조건을 주어 필터링 하기
+``` 
+
+#### 3.1. 시리즈 인덱싱
+```Python
+s = pd.Series(['a','b','c','d','e'],
+               index = [1, 3, 5, 7, 9])
+               
+s[1]  # 1을 이름으로 갖는 인덱스의 값을 슬라이싱 → 'a'
+s[2:4]
+
+s.iloc[1]  # 정수값의
+```
 
 
 
