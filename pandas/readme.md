@@ -24,8 +24,8 @@ import numpy as np
 
 ### 2. 판다스의 객체
 + 표(Table) : 데이터 프레임(2. DataFrame)
-+ 행(Columns) : 시리즈(1. Series)
-+ 열(row) : 인덱스(3. Index)
++ 열(Columns) : 시리즈(1. Series)
++ 행(row) : 인덱스(3. Index)
 
 
 #### 2.1. 시리즈(Series)
