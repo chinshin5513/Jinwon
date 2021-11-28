@@ -215,7 +215,79 @@ s = pd.Series(['a','b','c','d','e'],
 s[1]  # 1을 이름으로 갖는 인덱스의 값을 슬라이싱 → 'a'
 s[2:4]
 
-s.iloc[1]  # 정수값의
+s.iloc[1]  # 정수값으로 인덱스 위치를 접근(2번째 위치이므로 'b')
+s.iloc[2:4]  # 슬라이싱도 가능
+
+s.reindex(range(10))  # 인덱스 이름을 새로 바꾸는 것
+s.reindex(ranage(10), method='bfill')  # 비어있는 값을 이전의 값으로 채우는 명령어(backfill)
+```
+
+#### 3.2. 데이터프레임 인덱싱
+```Python
+korea_df
+korea_df['남자인구수']
+korea_df.남자인구수  # 키값으로 접근하는 것도 가능
+korea_df.여자인구수  # 키값으로 접근하는 것도 가능
+korea_df['남여비율'] = (korea_df['남자인구수'] / korea_df['인구수']) * 100
+korea_df.남여비율
+korea_df['성비'] = (korea_df['남자인구수'] *100 / korea_df['여자인구수'])
+korea_df.남여비율
+
+korea_df.T  # 전치
+korea_df.value[0]  # 값 한 줄만 뽑아내기
+
+korea_df.loc[:'인천광역시', :'남자인구수']  # 슬라이싱
+korea_df.loc[(korea_df.여자인구수 > 1000000)]  # 질의와 필터링, 여자 인구가 100만명 이상인 도시
+korea_df.loc[(korea_df.인구수 < 3000000)]  # 질의와 필터링, 전체 인구가 300만명 이하인 도시
+korea_df.loc[(korea_df.성비 > 100)]  # 질의와 필터링
+korea_df.loc[(korea_df.인구수 > 1000000) & (korea_df.성비 > 100)]  # AND 연산도 가능
+
+
+#### 3.3. 다중인덱싱(Multi indexing)
+* 1차원의 시리즈와 2차원의 데이터프레임을 활용하여 고차원의 데이터를 처리하는데 유용한 인덱싱
+
+korea_df
+idx_tuples = [('서울특별시', 2010), ('서울특별시', 2020),
+              ('부산광역시', 2010), ('부산광역시', 2020),
+              ('인천광역시', 2010), ('인천광역시', 2020),
+              ('대구광역시', 2010), ('대구광역시', 2020),
+              ('대전광역시', 2010), ('대전광역시', 2020),
+              ('광주광역시', 2010), ('광주광역시', 2020)]
+print(idx_tuples)
+
+pop_tuples = [10312545, 9720846,
+               3567910, 3404423,
+               2758296, 2947217, 
+               2511676, 2427954, 
+               1503664, 1471040, 
+               1454636, 1455048]
+population = pd.Series(pop_tuples, index=idx_tuples)  # 인덱스 생성, 멀티인덱스 아님
+
+midx = pd.MultiIndex.from_tuples(idx_tuples)  # 멀티인덱스를 바로 만들어주는 함수
+population = population.index(midx)
+
+# 인덱싱
+population[:, 2020]
+population['대전광역시', :]
+
+# 언스택: 멀티인덱싱을 전형적인 데이터프레임으로 변환해 줌
+korea_mdf = population.unstack()  
+# 스택: 데이터프레임을 다중인덱싱으로 변환하여 줌
+korea_mdf = population.stack()
+
+male_tuples = [5111259, 4732275,
+               1773170, 1668618,
+               1390356, 1476813,
+               1255245, 1198815,
+                753648,  734441,
+                721780,  720060]
+               
+korea_mdf = pd.DataFrame({'총인구수': population,
+                          '남자인구수': male_tuples})
+
+female_tuples = 
+
+
 ```
 
 
